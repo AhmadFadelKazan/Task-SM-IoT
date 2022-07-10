@@ -1,2 +1,2 @@
 # Task-SM-IoT
-Tasks Smart Method Company
+Task2 Write a Wasdom ESP32 segment operation algorithm
