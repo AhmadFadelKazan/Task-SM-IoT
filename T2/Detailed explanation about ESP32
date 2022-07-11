@@ -1,0 +1,153 @@
+INTRODUCTION to ESP32 development board:
+ESP32 is in the series of low power and low cost on chip microcontroller.
+It comes up with already integrated dual mode Bluetooth and Wi-Fi. 
+It is especially aimed to provide versatility, robustness and reliability in a large number of applications.
+Some applications in which this microcontroller is extensively used are MP3 decoding, voice encoding and music streaming.
+Best RF and power performance can be easily achieved using this microcontroller.
+ESP32 comes up with a USB port so we can say that it is a plug and play device
+i.e. just plug in cable and your device is turned on and you are able to program it just like Arduino development boards.
+We will go in details of programming this board later.
+
+
+COMPARISON OF ESP32 WITH ARDUINO
+If we compare this microcontroller with Arduino boards then we have a big advantage of this microcontroller over Arduino development boards and that is of Wi-Fi.
+Although Wi-Fi can be used with many Arduino boards but this feature comes up in form of shields / adapters.
+If we attach Wi-Fi shield with our Arduino board then we can access internet in our Arduino board otherwise it’s not possible.
+ESP32 comes up with integrated Wi-Fi module.
+Same is the case with Bluetooth which is available in Arduino in form of some modules and when it comes to ESP32, this feature is already integrated.
+So if we are interested in using Wi-Fi and Bluetooth then this board is less expensive as compared to Arduino boards as these adapters for Wi-Fi and Bluetooth are expensive.
+
+
+KEY FEATURES OF ESP32
+Built in Wi-Fi module of standard 802.11
+Wi-Fi module operate in range of 2.4 GHz – 2.5 GHz
+Three modes of operation: 1. Access point. 2. Client. 3. Access point + station
+Dual core microprocessor of 32 – bit
+Operating voltage is 3.3 V
+Clock frequency from 80 MHz and goes up to 240 MHz
+SRAM memory is of 512 KB
+ROM memory is 448 KB
+External flash memory is supported and is up to 32 Mb i.e. 4MB
+Maximum current in each pin is 12 mA but 6 mA is recommended to use
+It has 36 general purpose input / output pins
+General purpose input / output pins comes up with PWM / I2C and SPI functionality
+Bluetooth version 4.2 is available and Bluetooth low energy (BLE) version
+2 to 3.6 V operating voltage
+Deep sleep current of 2.5 µA
+10 electrode capacitive touch support
+Hardware supported encryption for AES, ECC, RSA – 4096, SHA2
+On board PCB antenna or IPEX connector which act as external antenna
+Operating temperature lies in range of -40°C to +125°C
+
+
+
+PINS SPECIFICATIONS OF ESP32:
+ESP32 supports pin multiplexing feature i.e. we can decide that from 28 broken input / output pins which peripherals can be connected.
+It simply means that it’s up to us that we have to decide for these pins and they can act as MISO, RX, SCLK, MOSI, TX, SCL, SDA and many more.
+However pins for analog to digital convertor and digital to analog convertor are static.
+Analog to digital convertor (ADC) channels are 18
+SPI interfaces are 3
+UART interfaces are 3
+I2C interfaces are 2
+PWM outputs are 16
+Digital to analog convertors (DAC) are 2
+I2S interfaces are 2
+
+
+
+
+SENSORS ON ESP32:
+Hall sensors
+32 kHz crystal oscillator
+Ultra low noise analog amplifier
+10x capacitive touch interfaces
+
+
+
+
+POWERING ESP32 DEVELOPMENT BOARD
+In order to turn on your ESP32 development board we can either make use of USB port or LiPo battery.
+If we use these both devices in our board then the charge controller that is already present on board will charge our LiPo battery. 
+There is also a 3.3 V voltage regulator present on board which will deliver current of 600 mA.
+During the RF transmission our board can pull up as much as 250 mA.
+Our general purpose input output pins cannot tolerate 5 V. 
+So if we need to interface our board with 5 V then we have to so level shifting.
+
+
+
+
+PROGRAMMING OF ESP32
+Arduino IDE can be used for programming of this board.
+But we have to install some drivers and libraries in order to make it compatible in Arduino IDE and ready to use just like we use other Arduino boards in Arduino IDE.
+So a brief explanation of drivers and libraries that are needed is given below.
+
+
+
+INSTALL DRIVERS
+The very first and important thing to program this board is to install CP210x USB – UART drivers. 
+Depending on your operating system, install the proper drivers.
+
+
+
+
+
+INSTALL LIBRARIES FOR ESP32
+You can install libraries for ESP32 by using GitHub.
+After installing all these drivers and libraries you are ready to program your board. 
+You can use Terminal in MAC or command line in windows operating system to install these libraries from GitHub.
+Once you are done with installation of required drivers and libraries you have to restart Arduino IDE and you are ready to go. 
+After restarting your Arduino IDE you will see several boards added in the tools menu of Arduino IDE. 
+Now select your appropriate board.
+
+BLINKING A LED:
+So the first program we are going to discuss is blinking of a LED.
+All code for LED blinking will be written in Arduino IDE.
+There is a built in led in ESP32 development kit that is connected to general purpose input / output pin 02. 
+One more thing we need to check before writing our code is to ensure that our built in led in ESP32 development board is supported by Arduino IDE. 
+If it is recognized by Arduino IDE then you are ready to write your code otherwise you have to make it recognizable by Arduino IDE by using following piece of code
+int LED_BUILTIN = 2;
+Each ESP32 board is having an internal led connected but they are connected to different general purpose input output pins. 
+In our case, an internal blue led is connected at general purpose input output pin. 
+So let’s write our piece of code.
+
+
+/*
+  ESP 32 Blink
+  Turns on an LED on for one second, then off for one second, repeatedly.
+  The ESP32 has an internal blue LED at D2 (GPIO 02)
+*/
+
+int LED_BUILTIN = 2;
+
+void setup() 
+{
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() 
+{
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                       // wait for a second
+}
+
+
+Program flow of every code that we write in Arduino IDE is that first we initialize variables. 
+Variables can be local or global. We will not go in the details of these local and global variables. 
+After variables initialization, our setup function will be called that is used to assign values of initialized variables and then our loop function is called. 
+Setup function will be called only once while loop function as obvious from name will run continuously in organized manner. 
+If we want to call setup function again then we have to re-run our program or restart our development board either by using rest button on board or
+by disconnecting and connecting our board again.
+So if we have a look at our code by keeping the points stated above in our mind, we first have initialized our built-in LED at general purpose input output pin 
+2. After initialization of this built-in LED we can see that the initialization and purpose of this led that whether it is acting as input or output. 
+After assigning it as output we go the loop function which will run endlessly unless and until we disconnect our board or stop running this program. 
+In our loop function we first turned on our led using DigitalWrite function and assigning our led high voltage,
+then we waited for 1 second delay and then turned off our led by assigning low voltage to our led and then waited for another sec and so the loop continues 
+i.e. this loop will turn on the led for 1 sec and then turn if off for 1 sec and it continues.
+
+
+
+
+
+
